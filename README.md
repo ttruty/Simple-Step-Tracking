@@ -1,0 +1,2 @@
+# Simple-Step-Tracking
+ A rapid prototyple to allow step tracking at foot level. Use case is to validate step tracking algorithms for wrist worns or other biomechanical devices. The device is wore around the ankle. The two main sensors are the force sensitive resistor (FSR) and an accelerometer/gyroscope module. The readings from these sensors are output to an SD card located on the device. Device is powered with a LiPo battery.
