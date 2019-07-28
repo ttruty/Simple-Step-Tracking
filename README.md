@@ -1,133 +1,49 @@
-#  F.A.S.T.
-## Fast, Accurate, Step Tracker
-This was a project to demonstrate the connection between a BLE Adafruit microcontroller and Unity.
+#  S.S.T.
+## Simple Step Tracking
 
-![BLE_U
-NITY](images/300pwr.gif)
+A rapid prototyple to allow step tracking at foot level. Use case is to validate step tracking algorithms for wrist worns or other biomechanical devices. The device is wore around the ankle. The two main sensors are the force sensitive resistor (FSR) and an accelerometer/gyroscope module. The readings from these sensors are output to an SD card located on the device. Device is powered with a LiPo battery.
+
+![S.S.T ](images/steptrackerimage.png)
 
 ## Project overview
 ### Required for project 
 #### Hardware
 - [Adafruit Feather NRF52](https://learn.adafruit.com/bluefruit-nrf52-feather-learning-guide?view=all)
--  [adxl335 Accelerometer modle](https://www.sparkfun.com/datasheets/Components/SMD/adxl335.pdf)
-- RGB LED
-#### Software
-- [Unity](https://store.unity.com/download) 
-- [Unity BLE Plugin](https://assetstore.unity.com/packages/tools/network/bluetooth-le-for-ios-tvos-and-android-26661)
+-  [AdaFruit Data Logger + RTC Feather Wing](https://www.adafruit.com/product/2922)
+- [mpu6050 Accelerometer/Gyro modle](https://store.invensense.com/datasheets/invensense/MPU-6050_DataSheet_V3%204.pdf)
+- [1 Small FSR](https://www.adafruit.com/product/166?gclid=Cj0KCQjwj_XpBRCCARIsAItJiuTcrXpMGNeuTHYRj1z0Lm8RHtkYdx6qYQlsoPKe9_s6JMVDyEAw94IaAk0qEALw_wcB)
+- 2 GB Micro SD Card
 
 ### Aims of Project
-- Goal of the project is to demonstrate that any BLE microcontroller will be able to connect to a unity project
-- The main example of the BLE Unity library connects a RFDuino module to a unity project, but any BLE device should be able to be connected.
-- To Demonstrate this, I will have the device connect via bluetooth LE to the Unity Game runnung on a phone.
-- As the device is tilted a cube on the unity program will also tilt.  
-- This is the proof of concept mainly to show connection with Unity.
+- Goal of the project is to create an accurate step counter. 
+- The raw readings from the sensors are outputted to an SD card
+- Days of recording in a small footprint to be worn
 
-![Fritzing](images/BLE_unity_bb.png "Fritzing")
 
-### Unity code
-The most important part of the unity code is the connection to BLE
+#### Assembly
+[Fritzing sketch]
+
+Notice correct pull-up and down resistors. i2c coms from the mpu6050 is addressed high, module AD0 pin is connect to possitive with a referince in firmware.
+
+#### Output
+Unix Times stamp, ax, ay, az, gx, gy, gz, force
 ```
-private string _FullUID = "6e40****-b5a3-f393-e0a9-e50e24dcca9e"; //Default UUID from adaFruit nrf52
-    private string _serviceUUID = "0001"; // service characteristic
-    private string _readCharacteristicUUID = "0003"; 
-    private string _writeCharacteristicUUID = "0002";
-    private string deviceToConnectTo = "_TimsBluefruit52"; //change to name given to module on Arduino code
-
+1564329544,-816,16584,1672,-214,-350,880,0
+1564329544,-648,16960,1540,935,1261,-216,0
+1564329544,-832,14980,-168,752,1540,435,0
+1564329544,-1304,14308,5164,1640,-1731,1915,0
 ```
-- This is what is defines the device, the FullUID is the UART service definition
-- The name of the device is what is defined in the arduino code
-- Unity is subscribing to the UART serial read of the arduino and parsing out the XYZ read from the accelerometer.
-- The block on the screen in turn changes color to what the LED shows on the RGB arduino
 
-### Materials
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Fritzing Bill of Materials</title>
-<style type="text/css">
-.meta {
-	font-size: small;
-	margin: 0.4em 0;
-}
-table {
-	border-collapse: collapse;
-}
-th {
-	font-weight: bold;
-	text-align: left;
-	border-bottom: 1px solid black;
-	padding: 0.1em 1.5em 0.2em 0.1em;
-}
-td {
-	border-bottom: 1px solid #CCC;
-	padding: 0.5em 1.5em 0.5em 0.1em;
-}
-.props {
-	font-size: smaller;
-}
-</style>
-</head>
+#### Current Build
 
-<body>
-<h1>Bill of Materials: BLE_Unity.fzz</h1>
-<p class="meta">BLE_Unity.fzz</p>
-<p class="meta">Thursday, May 2 2019, 14:46:02</p>
+![S.S.T ](images/sst1.jpg)
 
-<h2>Assembly List</h2>
-<table>
+![S.S.T ](images/sst2.jpg)
 
-  <thead>
-   <tr>
-    <th>Label</th>
-    <th>Part Type</th>
-    <th>Properties</th>
-    </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>LED1</td>
-    <td>RGB LED (com. anode, rbg)</td>
-    <td class="props">package 5 mm [THT]; polarity common anode; pin order rbg; rgb RGB</td>
-</tr><tr>
-    <td>Part1</td>
-    <td>Triple Axis Accelerometer Breakout - ADXL335</td>
-    <td class="props">chip ADXL; axes 3 (x, y, z)</td>
-</tr><tr>
-    <td>Part2</td>
-    <td>Adafruit Feather nRF52</td>
-    <td class="props">variant variant 1; part # Adafruit #3406</td>
-</tr>
-  </tbody>
-</table>
-<h2>Shopping List</h2>
-<table>
-  <thead>
-	<tr>
-    <th>Amount</th>
-    <th>Part Type</th>
-    <th>Properties</th>
-    </tr>
-  </thead>
-  <tbody>
-<tr>
-    <td>1</td>
-    <td>RGB LED (com. anode, rbg)</td>
-    <td class="props">package 5 mm [THT]; polarity common anode; pin order rbg; rgb RGB</td>
-</tr><tr>
-    <td>1</td>
-    <td>Triple Axis Accelerometer Breakout - ADXL335</td>
-    <td class="props">chip ADXL; axes 3 (x, y, z)</td>
-</tr><tr>
-    <td>1</td>
-    <td>Adafruit Feather nRF52</td>
-    <td class="props">variant variant 1; part # Adafruit #3406</td>
-</tr>
-  </tbody>
-</table>
-<p class="meta"><br/>Exported with Fritzing 0.9.3- http://fritzing.org</p>
-</body>
-</html>
+![S.S.T ](images/sst3.jpg)
 
-## KNOWN ISSUES
-> Will only work with specified BLE device, will add selection in future development
+![S.S.T ](images/sst4.jpg)
+
+![S.S.T ](images/sst5.jpg)
+
+![S.S.T ](images/sst6.jpg)
