@@ -19,6 +19,22 @@ A rapid prototyple to allow step tracking at foot level. Use case is to validate
 - The raw readings from the sensors are outputted to an SD card
 - Days of recording in a small footprint to be worn
 
+### Usage
+- Make sure SD card is inserted before power up. 
+- Writes to file DATALOG.txt
+- If runs out of power last few write timestamps will show incorrect.
+- Unplug SD to charge
+- Make sure powered down to reinsert SD
+- Then reconnect battery
+
+> sample stepping data located in the [sample log](SampleLogs/Steps21.txt)
+
+![foot1](images/foot1.jpg)
+
+![foot2](images/foot1.jpg)
+
+
+
 
 #### Assembly
 ![Fritzing sketch](images/SimpleStepTracking_bb.png)
